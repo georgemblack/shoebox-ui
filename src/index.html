@@ -1,48 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <meta name="description" content="Shoebox web client" />
+    <!-- Google Sign-In -->
+    <meta name="google-signin-scope" content="profile email" />
+    <meta
+      name="google-signin-client_id"
+      content="48441241447-qr9krmm9h8mkl2pf6vcu1ktqb8u9sfkb.apps.googleusercontent.com"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="module" src="./index.js"></script>
+    <title>Shoebox</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="main.css" />
-  <meta name="description" content="Shoebox Web Sample Page" />
-  <!-- Google Sign-In -->
-  <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id"
-    content="48441241447-qr9krmm9h8mkl2pf6vcu1ktqb8u9sfkb.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <!-- Icons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
-  <link rel="manifest" href="/icons/site.webmanifest" />
-  <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#21a9ff" />
-  <link rel="shortcut icon" href="/icons/favicon.ico" />
-  <meta name="msapplication-TileColor" content="#21a9ff" />
-  <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-  <title>Shoebox</title>
-</head>
+  <body>
+    <div id="root"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log("Full Name: " + profile.getName());
+        console.log("Given Name: " + profile.getGivenName());
+        console.log("Family Name: " + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
 
-<body>
-  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-  <script>
-    function onSignIn(googleUser) {
-      // Useful data for your client-side scripts:
-      var profile = googleUser.getBasicProfile();
-      console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-      console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail());
-
-      // The ID token you need to pass to your backend:
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
-
-
-    }
-  </script>
-</body>
-
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+    </script>
+  </body>
 </html>
