@@ -32,7 +32,7 @@ steps:
       - "--platform"
       - "managed"
       - "--service-account"
-      - "dummy-service@oceanblue.iam.gserviceaccount.com"
+      - "dummy-service@shoeboxweb.iam.gserviceaccount.com"
       - "--allow-unauthenticated"
 images:
   - "us-east1-docker.pkg.dev/$PROJECT_ID/private/shoebox-ui:$COMMIT_SHA"
