@@ -1,6 +1,7 @@
 import GlobalContext from "../context/GlobalContext.js";
 import { useContext, useEffect } from "react";
 import Time from "../components/Time.jsx";
+import DeleteWithConfirmationButton from "../components/DeleteWithConfirmationButton.jsx";
 
 function HomePage() {
   const { entries, getEntries } = useContext(GlobalContext);
@@ -29,7 +30,7 @@ function HomePage() {
 
     return (
       <div
-        className="mt-2 flex justify-between rounded bg-blue-50 py-2 px-4"
+        className="mt-2 flex justify-between rounded bg-gray-50 py-2 px-4"
         key={entry.id}
       >
         <div>
@@ -39,6 +40,7 @@ function HomePage() {
           </p>
         </div>
         <div>{latitude && longitude && <a href={locationUrl}>🌎</a>}</div>
+        <DeleteWithConfirmationButton />
       </div>
     );
   });
