@@ -16,7 +16,7 @@ function HomePage() {
     let longitude = "";
     let published = entry.published;
 
-    for (item of entry.content) {
+    for (let item of entry.content) {
       if (item.type === "text") {
         text = item.text;
       }
