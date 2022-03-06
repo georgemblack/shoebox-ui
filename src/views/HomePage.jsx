@@ -4,26 +4,28 @@ import Time from "../components/Time.jsx";
 import DeleteWithConfirmationButton from "../components/DeleteWithConfirmationButton.jsx";
 
 function HomePage() {
-  const { entries, getEntries } = useContext(GlobalContext);
+  const { entries, getEntries, deleteEntry } = useContext(GlobalContext);
 
   useEffect(() => {
     getEntries();
   }, []);
 
+  const handleDelete = async (id) => {
+    await deleteEntry(id);
+  };
+
   const entryDisplay = entries.map((entry) => {
-    let text = "No text provided.";
+    let text = "(No text)";
     let latitude = "";
     let longitude = "";
-    let published = entry.published;
+    let created = entry.created;
 
-    for (let item of entry.content) {
-      if (item.type === "text") {
-        text = item.text;
-      }
-      if (item.type === "geopoint") {
-        latitude = item.geopoint.latitude;
-        longitude = item.geopoint.longitude;
-      }
+    if (entry.text) {
+      text = entry.text;
+    }
+    if (entry.geopoint) {
+      latitude = entry.geopoint.latitude;
+      longitude = entry.geopoint.longitude;
     }
 
     let locationUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
@@ -36,11 +38,13 @@ function HomePage() {
         <div>
           <p>{text}</p>
           <p className="mt-1 text-slate-400">
-            <Time timestamp={published} />
+            <Time timestamp={created} />
           </p>
         </div>
         <div>{latitude && longitude && <a href={locationUrl}>🌎</a>}</div>
-        <DeleteWithConfirmationButton />
+        <DeleteWithConfirmationButton
+          handleDelete={() => handleDelete(entry.id)}
+        />
       </div>
     );
   });

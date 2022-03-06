@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getEntriesAPI } from "../data/Api";
+import { getEntriesAPI, deleteEntryAPI } from "../data/Api";
 
 export default function useGlobalContext() {
   /**
@@ -19,8 +19,14 @@ export default function useGlobalContext() {
     setEntries(entries);
   };
 
+  const deleteEntry = async (id) => {
+    await deleteEntryAPI(id);
+    await getEntries();
+  };
+
   return {
     getEntries,
+    deleteEntry,
     entries,
   };
 }
