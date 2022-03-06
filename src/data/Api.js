@@ -14,7 +14,7 @@ export async function getEntriesAPI() {
 }
 
 export async function deleteEntryAPI(id) {
-  const response = await fetch(`${API_URL}/api/entries/${id}`, {
+  await fetch(`${API_URL}/api/entries/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${getAuthToken()}`,

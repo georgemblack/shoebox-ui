@@ -11,9 +11,9 @@ export default function useGlobalContext() {
     const response = await getEntriesAPI();
     let entries = response.entries;
 
-    // Sort entries by published timestamp
+    // Sort entries by created timestamp
     entries.sort((a, b) => {
-      return a.published > b.published ? -1 : 1;
+      return a.created > b.created ? -1 : 1;
     });
 
     setEntries(entries);
