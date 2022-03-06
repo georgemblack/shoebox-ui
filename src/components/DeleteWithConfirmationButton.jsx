@@ -13,7 +13,7 @@ function DeleteWithConfirmationButton(props) {
     <div>
       <div
         onClick={handleClick}
-        className="block cursor-pointer rounded-full bg-red-100 p-2"
+        className="inline-block cursor-pointer rounded-full bg-gray-200 p-2"
       >
         {message}
       </div>

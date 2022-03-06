@@ -22,8 +22,7 @@ function Entry(props) {
     latitude = props.entry.geopoint.latitude;
     longitude = props.entry.geopoint.longitude;
   }
-
-  let locationUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+  let locationUrl = `https://maps.apple.com?q=${latitude},${longitude}`;
 
   return (
     <div
@@ -32,20 +31,26 @@ function Entry(props) {
     >
       <div>
         <p>{text}</p>
-        <p className="mt-1 text-slate-400">
+        <p className="mt-1 text-sm text-slate-400">
           <Time timestamp={created} />
         </p>
       </div>
-      <div>
+      <div className="flex items-center gap-2">
         {latitude && longitude && (
-          <a href={locationUrl} target={"_blank"}>
-            🌎
-          </a>
+          <div>
+            <a
+              className="inline-block rounded-full bg-blue-100 p-2"
+              href={locationUrl}
+              target={"_blank"}
+            >
+              🌎
+            </a>
+          </div>
         )}
+        <DeleteWithConfirmationButton
+          handleDelete={() => handleDelete(props.entry.id)}
+        />
       </div>
-      <DeleteWithConfirmationButton
-        handleDelete={() => handleDelete(props.entry.id)}
-      />
     </div>
   );
 }
