@@ -8,10 +8,10 @@ function Entry(props) {
   const { deleteEntry } = useContext(GlobalContext);
 
   const handleDelete = async (id) => {
-    await deleteEntry(props.entry.id);
+    await deleteEntry(id);
   };
 
-  let text = "(No text)";
+  let text = "";
   let latitude = "";
   let longitude = "";
   let created = props.entry.created;
@@ -36,7 +36,7 @@ function Entry(props) {
           <Time timestamp={created} />
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-col items-center gap-2 md:flex-row">
         <div>
           <a
             className="inline-block rounded-full bg-blue-100 p-2"
