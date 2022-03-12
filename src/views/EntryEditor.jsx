@@ -1,38 +1,46 @@
-import { useContext, useReducer } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import mergeWith from "lodash.mergewith";
 import GlobalContext from "../context/GlobalContext.js";
 import TextArea from "../components/TextArea.jsx";
 import Button from "../components/Button.jsx";
+import Time from "../components/Time.jsx";
 
-function reducer(state, data) {
-  return mergeWith({}, state, data);
-}
+const placeholderEntry = {
+  text: "Loading...",
+  created: new Date(),
+};
 
-function EntryEditor(props) {
+function EntryEditor() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { putEntry, getEntry } = useContext(GlobalContext);
+  const [entry, setEntry] = useState(placeholderEntry);
 
-  const { entries, putEntry } = useContext(GlobalContext);
-  const entry = entries.find((entry) => entry.id === id);
+  useEffect(async () => {
+    const current = await getEntry(id);
+    setEntry(current);
+  }, []);
 
-  const [formState, formDispatch] = useReducer(reducer, entry);
+  const handleTextChange = (event) => {
+    const newEntry = { ...entry, text: event.target.value };
+    setEntry(newEntry);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await putEntry(formState);
+    await putEntry(entry);
     navigate("/");
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <TextArea
-          value={formState.text}
-          onChange={(event) => formDispatch({ text: event.target.value })}
-        />
+        <TextArea value={entry.text} onChange={handleTextChange} />
         <Button type="submit">Submit</Button>
       </form>
+      <p className="mt-1 text-sm text-slate-400">
+        <Time timestamp={entry.created} />
+      </p>
     </>
   );
 }

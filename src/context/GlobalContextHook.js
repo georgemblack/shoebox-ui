@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { getEntriesAPI, putEntryAPI, deleteEntryAPI } from "../data/Api";
+import {
+  getEntriesAPI,
+  getEntryAPI,
+  putEntryAPI,
+  deleteEntryAPI,
+} from "../data/Api";
 
 export default function useGlobalContext() {
   /**
@@ -19,6 +24,10 @@ export default function useGlobalContext() {
     setEntries(entries);
   };
 
+  const getEntry = async (id) => {
+    return await getEntryAPI(id);
+  };
+
   const putEntry = async (entry) => {
     await putEntryAPI(entry);
     await getEntries();
@@ -31,6 +40,7 @@ export default function useGlobalContext() {
 
   return {
     getEntries,
+    getEntry,
     putEntry,
     deleteEntry,
     entries,

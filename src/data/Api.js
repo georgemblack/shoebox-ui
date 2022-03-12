@@ -13,6 +13,17 @@ export async function getEntriesAPI() {
   return await response.json();
 }
 
+export async function getEntryAPI(id) {
+  const response = await fetch(`${API_URL}/api/entries/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${getAuthToken()}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return await response.json();
+}
+
 export async function putEntryAPI(entry) {
   const id = entry.id;
   delete entry.id;
