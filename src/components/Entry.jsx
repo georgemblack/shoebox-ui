@@ -2,6 +2,7 @@ import { useContext } from "react";
 import GlobalContext from "../context/GlobalContext.js";
 import Time from "../components/Time.jsx";
 import DeleteWithConfirmationButton from "../components/DeleteWithConfirmationButton.jsx";
+import { Link } from "react-router-dom";
 
 function Entry(props) {
   const { deleteEntry } = useContext(GlobalContext);
@@ -36,17 +37,20 @@ function Entry(props) {
         </p>
       </div>
       <div className="flex items-center gap-2">
-        {latitude && longitude && (
-          <div>
-            <a
-              className="inline-block rounded-full bg-blue-100 p-2"
-              href={locationUrl}
-              target={"_blank"}
-            >
-              🌎
-            </a>
+        <div>
+          <a
+            className="inline-block rounded-full bg-blue-100 p-2"
+            href={locationUrl}
+            target={"_blank"}
+          >
+            🌎
+          </a>
+        </div>
+        <Link to={`/entries/${props.entry.id}`}>
+          <div className="inline-block cursor-pointer rounded-full bg-orange-200 p-2">
+            ✏️
           </div>
-        )}
+        </Link>
         <DeleteWithConfirmationButton
           handleDelete={() => handleDelete(props.entry.id)}
         />
